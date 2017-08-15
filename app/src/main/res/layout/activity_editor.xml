@@ -3,40 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight = "1">
+        >
 
         <TextView
             android:id="@+id/editor_item_name_label"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:text="Name"/>
 
         <EditText
             android:id="@+id/editor_item_name_edit"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:text="salada"/>
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight = "1">
+       >
 
         <TextView
             android:id="@+id/editor_item_date_label"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:text="Date"/>
 
         <EditText
             android:id="@+id/editor_date_name_edit"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:text="21/12/15"/>
 
     </LinearLayout>
 
