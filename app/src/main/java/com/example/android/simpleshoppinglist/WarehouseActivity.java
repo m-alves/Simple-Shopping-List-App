@@ -1,9 +1,8 @@
 package com.example.android.simpleshoppinglist;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class WarehouseActivity extends AppCompatActivity {
+public class WarehouseActivity extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
