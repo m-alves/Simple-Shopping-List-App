@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Simple Shopping List</string>
+
+    <string name="shopping_list_fragment_label">Lista de Compras</string>
+    <string name="warehouse_fragment_label">Dispensa</string>
+
+    <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">A lista está vazia!</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a item [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Adicione novos itens à lista.</string>
+
 </resources>
