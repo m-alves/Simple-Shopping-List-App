@@ -25,6 +25,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <provider
+            android:name="com.example.android.simpleshoppinglist.Data.ShoppingListProvider"
+            android:authorities="com.example.android.simpleshoppinglist"
+            android:exported="false" />
+
     </application>
 
 </manifest>

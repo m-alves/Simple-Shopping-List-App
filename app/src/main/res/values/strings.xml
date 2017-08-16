@@ -10,4 +10,18 @@
     <!-- Subtitle text for the empty view that prompts the user to add a item [CHAR LIMIT=50] -->
     <string name="empty_view_subtitle_text">Adicione novos itens à lista.</string>
 
+    <string name="detail_insert_item_failed">Não foi possível adicionar o item.</string>
+
+    <string name="detail_insert_item_successful">Item adicionado com sucesso!</string>
+
+    <string name="unsaved_changes_dialog_msg">Existem alterações não guardadas!</string>
+
+    <string name="discard">Descartar alterações</string>
+
+    <string name="keep_editing">Continuar edição</string>
+
+    <string name="detail_delete_item_failed">Não foi possível apagar o item.</string>
+
+    <string name="detail_delete_item_successful">Item apagado!</string>
+
 </resources>
