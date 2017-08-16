@@ -30,7 +30,7 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
      */
 
     Context mContext;
-    public ShoppingListCursorAdapter(ShoppingListFragment context, Cursor c) {
+    public ShoppingListCursorAdapter(Context context, Cursor c) {
 
         super(context, c, 0 /* flags */);
 

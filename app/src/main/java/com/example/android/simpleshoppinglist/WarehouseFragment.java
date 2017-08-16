@@ -1,13 +1,13 @@
 package com.example.android.simpleshoppinglist;
 
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +52,7 @@ public class WarehouseFragment extends Fragment implements
         itemListView.setEmptyView(emptyView);
 
         // Setup an Adapter to create a list item for each row of item data in the Cursor.
-        mCursorAdapter = new WarehouseCursorAdapter(this, null);
+        mCursorAdapter = new WarehouseCursorAdapter(getActivity(), null);
         itemListView.setAdapter(mCursorAdapter);
 
         // Kick off the loader

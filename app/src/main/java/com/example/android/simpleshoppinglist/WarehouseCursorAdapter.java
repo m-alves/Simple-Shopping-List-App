@@ -31,7 +31,7 @@ public class WarehouseCursorAdapter extends CursorAdapter{
      */
 
     Context mContext;
-    public WarehouseCursorAdapter(WarehouseFragment context, Cursor c) {
+    public WarehouseCursorAdapter(Context context, Cursor c) {
 
         super(context, c, 0 /* flags */);
 
