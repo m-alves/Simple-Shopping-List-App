@@ -70,6 +70,8 @@ public class WarehouseFragment extends Fragment implements
                 WarehouseEntry.COLUMN_WAREHOUSE_DATE,
                 WarehouseEntry.COLUMN_WAREHOUSE_INLIST};
 
+        String sortOrder =  WarehouseEntry.COLUMN_WAREHOUSE_NAME + " DESC";
+
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(getActivity(),   // Parent activity context
@@ -77,7 +79,7 @@ public class WarehouseFragment extends Fragment implements
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
-                null);                  // Default sort order
+                sortOrder);                  // Default sort order
     }
 
     @Override

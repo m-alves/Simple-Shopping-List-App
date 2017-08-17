@@ -3,6 +3,7 @@ package com.example.android.simpleshoppinglist;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import com.example.android.simpleshoppinglist.Data.ShoppingListContract.WarehouseEntry;
+
+import java.util.Calendar;
 
 /**
  * Created by Utilizador on 16/08/2017.
@@ -81,7 +85,7 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
 
         // Read the pet attributes from the Cursor for the current pet
         final String shoppingListItemName = cursor.getString(nameColumnIndex);
-        final String shoppingListItemDate = cursor.getString(dateColumnIndex);
+        String shoppingListItemDate = cursor.getString(dateColumnIndex);
 
 
         // Update the TextViews with the attributes for the current pet
@@ -97,10 +101,10 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
                 long id = cursor.getLong(cursor.getColumnIndex(WarehouseEntry._ID));
                 Uri currentItemUri = ContentUris.withAppendedId(WarehouseEntry.CONTENT_URI, id);
                 inListStatus = 0;
+                String boughtItemDate = getDate();
 
                 ContentValues values = new ContentValues();
-                values.put(WarehouseEntry.COLUMN_WAREHOUSE_NAME, shoppingListItemName);
-                values.put(WarehouseEntry.COLUMN_WAREHOUSE_DATE, shoppingListItemDate);
+                values.put(WarehouseEntry.COLUMN_WAREHOUSE_DATE, boughtItemDate);
                 values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
                 int rowsAffected = mContext.getContentResolver().update(currentItemUri, values, null, null);
             }
@@ -109,11 +113,12 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
         shoppingDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // testar passar tudo para o método do dialog
                 int position = (int) shoppingDeleteButton.getTag();
                 cursor.moveToPosition(position);
                 long id = cursor.getLong(cursor.getColumnIndex(WarehouseEntry._ID));
                 Uri currentItemUri = ContentUris.withAppendedId(WarehouseEntry.CONTENT_URI, id);
-                deleteItem(currentItemUri);
+                showDeleteConfirmationDialog(currentItemUri);
 
                 //Falta completar com diálogo para apagar de ambas as listas ou só de uma
             }
@@ -139,6 +144,53 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
                         Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void showDeleteConfirmationDialog(Uri uri) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("Deseja apagar da dispensa?");
+        final Uri itemUri = uri;
+        //
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the item.
+                deleteItem(itemUri);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the item.
+                inListStatus = 0;
+
+                ContentValues values = new ContentValues();
+                values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
+                int rowsAffected = mContext.getContentResolver().update(itemUri, values, null, null);
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    private String getDate(){
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH) + 1;
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Comprado a ").append(mDay)
+                .append("/").append(mMonth).append("/")
+                .append(mYear);
+
+        return sb.toString();
     }
 
 }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.android.simpleshoppinglist.Data.ShoppingListContract.WarehouseEntry;
 
+import java.util.Calendar;
+
 public class EditorActivity extends AppCompatActivity {
 
     /** Identifier for the item data loader */
@@ -59,11 +61,11 @@ public class EditorActivity extends AppCompatActivity {
 
 
         mNameEditText = (EditText) findViewById(R.id.editor_item_name_edit);
-        mDateEditText = (EditText) findViewById(R.id.editor_date_name_edit);
+
         mSaveButton = (Button) findViewById(R.id.editor_save_button);
 
         mNameEditText.setOnTouchListener(mTouchListener);
-        mDateEditText.setOnTouchListener(mTouchListener);
+
         mSaveButton.setOnTouchListener(mTouchListener);
 
         mSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -93,11 +95,8 @@ public class EditorActivity extends AppCompatActivity {
         }
 
 
-        String dateString = mDateEditText.getText().toString().trim();
-        if(dateString == null || TextUtils.isEmpty(dateString)){
-            dateString = "20/07/2017";
-            return;
-        }
+        String dateString = getDate();
+
 
 
         // Create a ContentValues object where column names are the keys,
@@ -169,6 +168,20 @@ public class EditorActivity extends AppCompatActivity {
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private String getDate(){
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH) + 1;
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Adicionado a ").append(mDay)
+                .append("/").append(mMonth).append("/")
+                .append(mYear);
+
+        return sb.toString();
     }
 }
 
