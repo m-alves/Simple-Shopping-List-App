@@ -70,7 +70,7 @@ public class WarehouseFragment extends Fragment implements
                 WarehouseEntry.COLUMN_WAREHOUSE_DATE,
                 WarehouseEntry.COLUMN_WAREHOUSE_INLIST};
 
-        String sortOrder =  WarehouseEntry.COLUMN_WAREHOUSE_NAME + " DESC";
+        String sortOrder =  WarehouseEntry.COLUMN_WAREHOUSE_NAME + " ASC";
 
 
         // This loader will execute the ContentProvider's query method on a background thread

@@ -71,6 +71,8 @@ public class ShoppingListFragment extends Fragment implements LoaderManager.Load
         String selection = WarehouseEntry.COLUMN_WAREHOUSE_INLIST + "=?";
         String[] selectionArgs = new String[] { "1" };
 
+        String sortOrder =  WarehouseEntry.COLUMN_WAREHOUSE_NAME + " ASC";
+
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(getActivity(),   // Parent activity context
@@ -78,7 +80,7 @@ public class ShoppingListFragment extends Fragment implements LoaderManager.Load
                 projection,             // Columns to include in the resulting Cursor
                 selection,                   // No selection clause
                 selectionArgs,                   // No selection arguments
-                null);                  // Default sort order
+                sortOrder);                  // Default sort order
     }
 
     @Override
