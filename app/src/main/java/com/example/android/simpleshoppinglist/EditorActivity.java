@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.android.simpleshoppinglist.Data.ShoppingListContract.WarehouseEntry;
@@ -33,7 +33,7 @@ public class EditorActivity extends AppCompatActivity {
     private EditText mDateEditText;
 
     /*Save Button*/
-    private Button mSaveButton;
+    private ImageButton mSaveButton;
 
     private boolean mValidInput;
 
@@ -62,7 +62,7 @@ public class EditorActivity extends AppCompatActivity {
 
         mNameEditText = (EditText) findViewById(R.id.editor_item_name_edit);
 
-        mSaveButton = (Button) findViewById(R.id.editor_save_button);
+        mSaveButton = (ImageButton) findViewById(R.id.editor_save_button);
 
         mNameEditText.setOnTouchListener(mTouchListener);
 

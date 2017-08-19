@@ -24,4 +24,8 @@
 
     <string name="detail_delete_item_successful">Item apagado!</string>
 
+    <string name="warehouse_add_to_list_successful">Item adicionado à lista!</string>
+
+    <string name="warehouse_remove_from_list_successful">Item removido da lista!</string>
+
 </resources>

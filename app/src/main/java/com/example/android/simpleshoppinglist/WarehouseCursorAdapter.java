@@ -8,8 +8,8 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,29 +65,36 @@ public class WarehouseCursorAdapter extends CursorAdapter{
     @Override
     public void bindView(View view, Context context, final Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
-        final Button warehouseDeleteButton = (Button) view.findViewById(R.id.warehouse_delete_button);
+        final ImageButton warehouseDeleteButton = (ImageButton) view.findViewById(R.id.warehouse_delete_button);
         TextView nameTextView = (TextView) view.findViewById(R.id.warehouse_item_name);
         TextView dateTextView = (TextView) view.findViewById(R.id.warehouse_item_last_bought);
-        final Button addButton = (Button) view.findViewById(R.id.warehouse_add_button);
+        final ImageButton addButton = (ImageButton) view.findViewById(R.id.warehouse_add_button);
 
         warehouseDeleteButton.setTag(cursor.getPosition());
         addButton.setTag(cursor.getPosition());
+
+
 
 
         mContext = context;
         // Find the columns of pet attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(WarehouseEntry.COLUMN_WAREHOUSE_NAME);
         int dateColumnIndex = cursor.getColumnIndex(WarehouseEntry.COLUMN_WAREHOUSE_DATE);
-
+        int inListStatusIndex = cursor.getColumnIndex(WarehouseEntry.COLUMN_WAREHOUSE_INLIST);
 
         // Read the pet attributes from the Cursor for the current pet
         final String warehouseItemName = cursor.getString(nameColumnIndex);
         final String warehouseItemDate = cursor.getString(dateColumnIndex);
-
+        inListStatus = cursor.getInt(inListStatusIndex);
 
         // Update the TextViews with the attributes for the current pet
         nameTextView.setText(warehouseItemName);
         dateTextView.setText(warehouseItemDate);
+        if(inListStatus == 0) {
+            addButton.setImageResource(R.drawable.ic_action_add_shopping_list);
+        } else {
+            addButton.setImageResource(R.drawable.ic_action_added_list);
+        }
 
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -97,13 +104,26 @@ public class WarehouseCursorAdapter extends CursorAdapter{
                 cursor.moveToPosition(position);
                 long id = cursor.getLong(cursor.getColumnIndex(WarehouseEntry._ID));
                 Uri currentItemUri = ContentUris.withAppendedId(WarehouseEntry.CONTENT_URI, id);
-                inListStatus = 1;
+                int inListStatusIndex = cursor.getColumnIndex(WarehouseEntry.COLUMN_WAREHOUSE_INLIST);
+                inListStatus = cursor.getInt(inListStatusIndex);
+                if(inListStatus == 0){
+                    inListStatus = 1;
+                    ContentValues values = new ContentValues();
+                    values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
+                    int rowsAffected = mContext.getContentResolver().update(currentItemUri, values, null, null);
+                    addButton.setImageResource(R.drawable.ic_action_added_list);
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.warehouse_add_to_list_successful),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    inListStatus = 0;
+                    ContentValues values = new ContentValues();
+                    values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
+                    int rowsAffected = mContext.getContentResolver().update(currentItemUri, values, null, null);
+                    addButton.setImageResource(R.drawable.ic_action_add_shopping_list);
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.warehouse_remove_from_list_successful),
+                            Toast.LENGTH_SHORT).show();
+                }
 
-                ContentValues values = new ContentValues();
-                values.put(WarehouseEntry.COLUMN_WAREHOUSE_NAME, warehouseItemName);
-                values.put(WarehouseEntry.COLUMN_WAREHOUSE_DATE, warehouseItemDate);
-                values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
-                int rowsAffected = mContext.getContentResolver().update(currentItemUri, values, null, null);
             }
         });
 

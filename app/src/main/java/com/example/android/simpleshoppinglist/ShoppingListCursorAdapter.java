@@ -1,5 +1,6 @@
 package com.example.android.simpleshoppinglist;
 
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,11 +10,10 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
 
 import com.example.android.simpleshoppinglist.Data.ShoppingListContract.WarehouseEntry;
 
@@ -68,10 +68,10 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, final Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
-        final Button boughtButton = (Button) view.findViewById(R.id.bought_button);
+        final ImageButton boughtButton = (ImageButton) view.findViewById(R.id.bought_button);
         TextView nameTextView = (TextView) view.findViewById(R.id.shopping_item_name);
         TextView dateTextView = (TextView) view.findViewById(R.id.shopping_item_last_bought);
-        final Button shoppingDeleteButton = (Button) view.findViewById(R.id.shopping_delete_button);
+        final ImageButton shoppingDeleteButton = (ImageButton) view.findViewById(R.id.shopping_delete_button);
 
         boughtButton.setTag(cursor.getPosition());
         shoppingDeleteButton.setTag(cursor.getPosition());

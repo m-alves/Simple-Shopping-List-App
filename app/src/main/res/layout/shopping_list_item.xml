@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/bought_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight = "2"
         android:layout_margin="8dp"
-        android:text="Check"/>
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_action_check"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -36,12 +37,13 @@
             tools:text="22/11/2016"/>
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/shopping_delete_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight = "2"
         android:layout_margin="8dp"
-        android:text="Apagar"/>
+        android:src="@drawable/ic_action_name_delete_shopping_list"
+        android:background="@android:color/transparent"/>
 
 </LinearLayout>
