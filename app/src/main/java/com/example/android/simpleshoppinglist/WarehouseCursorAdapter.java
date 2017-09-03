@@ -22,6 +22,7 @@ import com.example.android.simpleshoppinglist.Data.ShoppingListContract.Warehous
 public class WarehouseCursorAdapter extends CursorAdapter{
 
     private int inListStatus;
+    private Toast mToast;
 
     /**
      * Constructs a new {@linkr}.
@@ -112,16 +113,24 @@ public class WarehouseCursorAdapter extends CursorAdapter{
                     values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
                     int rowsAffected = mContext.getContentResolver().update(currentItemUri, values, null, null);
                     addButton.setImageResource(R.drawable.ic_action_added_list);
-                    Toast.makeText(mContext, mContext.getResources().getString(R.string.warehouse_add_to_list_successful),
-                            Toast.LENGTH_SHORT).show();
+                    if(mToast != null){
+                        mToast.cancel();
+                    }
+                    mToast=Toast.makeText(mContext, mContext.getResources().getString(R.string.warehouse_add_to_list_successful),
+                            Toast.LENGTH_SHORT);
+                    mToast.show();
                 } else {
                     inListStatus = 0;
                     ContentValues values = new ContentValues();
                     values.put(WarehouseEntry.COLUMN_WAREHOUSE_INLIST, inListStatus);
                     int rowsAffected = mContext.getContentResolver().update(currentItemUri, values, null, null);
                     addButton.setImageResource(R.drawable.ic_action_add_shopping_list);
-                    Toast.makeText(mContext, mContext.getResources().getString(R.string.warehouse_remove_from_list_successful),
-                            Toast.LENGTH_SHORT).show();
+                    if(mToast != null){
+                        mToast.cancel();
+                    }
+                    mToast=Toast.makeText(mContext, mContext.getResources().getString(R.string.warehouse_remove_from_list_successful),
+                            Toast.LENGTH_SHORT);
+                    mToast.show();
                 }
 
             }
@@ -150,12 +159,20 @@ public class WarehouseCursorAdapter extends CursorAdapter{
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_failed),
-                        Toast.LENGTH_SHORT).show();
+                if(mToast != null){
+                    mToast.cancel();
+                }
+                mToast=Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_failed),
+                        Toast.LENGTH_SHORT);
+                mToast.show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_successful),
-                        Toast.LENGTH_SHORT).show();
+                if(mToast != null){
+                    mToast.cancel();
+                }
+                mToast=Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_successful),
+                        Toast.LENGTH_SHORT);
+                mToast.show();
             }
         }
     }

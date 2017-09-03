@@ -26,6 +26,8 @@ import java.util.Calendar;
 public class ShoppingListCursorAdapter extends CursorAdapter {
     private int inListStatus;
 
+    private Toast mToast;
+
     /**
      * Constructs a new {@link }.
      *
@@ -120,7 +122,7 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
                 Uri currentItemUri = ContentUris.withAppendedId(WarehouseEntry.CONTENT_URI, id);
                 showDeleteConfirmationDialog(currentItemUri);
 
-                //Falta completar com diálogo para apagar de ambas as listas ou só de uma
+
             }
         });
     }
@@ -136,12 +138,20 @@ public class ShoppingListCursorAdapter extends CursorAdapter {
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_failed),
-                        Toast.LENGTH_SHORT).show();
+                if(mToast != null){
+                    mToast.cancel();
+                }
+                mToast = Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_failed),
+                        Toast.LENGTH_SHORT);
+                mToast.show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_successful),
-                        Toast.LENGTH_SHORT).show();
+                if(mToast != null){
+                    mToast.cancel();
+                }
+                mToast=Toast.makeText(mContext, mContext.getResources().getString(R.string.detail_delete_item_successful),
+                        Toast.LENGTH_SHORT);
+                mToast.show();
             }
         }
     }
